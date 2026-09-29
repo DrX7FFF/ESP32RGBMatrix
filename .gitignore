@@ -52,6 +52,9 @@ Makefile
 install_manifest.txt
 compile_commands.json
 
+# PlatformIO
+.pio/
+
 # Temporary files
 *.tmp
 *.log
@@ -67,3 +70,4 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+ESP8266RGBMatrix-master/
