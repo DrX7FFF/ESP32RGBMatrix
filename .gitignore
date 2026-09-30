@@ -55,6 +55,9 @@ compile_commands.json
 # PlatformIO
 .pio/
 
+# VSCode
+.vscode/
+
 # Temporary files
 *.tmp
 *.log
