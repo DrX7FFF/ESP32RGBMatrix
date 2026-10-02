@@ -4,6 +4,9 @@
 
 Le projet PlatformIO à la racine utilise la bibliothèque HUB75 `Adafruit Protomatter`, recommandée pour le Matrix Portal S3. Le firmware de démonstration est dans [src/main.cpp](src/main.cpp) et utilise le brochage natif de la carte.
 
+
+https://learn.adafruit.com/adafruit-matrixportal-s3
+
 ### Préparer et téléverser
 
 Installer l'extension PlatformIO dans VS Code, puis exécuter depuis le dossier du projet :
