@@ -1,53 +1,91 @@
 #include <Adafruit_Protomatter.h>
 #include <Arduino.h>
+#include <vector>
 
 // Adafruit Matrix Portal S3 HUB75 pins.
 uint8_t rgbPins[] = {42, 41, 40, 38, 39, 37};
-uint8_t addrPins[] = {17, 18, 21, 16, 36};
+uint8_t addrPins[] = {17, 18, 21, 16};
 
 constexpr uint8_t CLK_PIN = 34;
 constexpr uint8_t LAT_PIN = 33;
 constexpr uint8_t OE_PIN = 35;
-constexpr uint16_t MATRIX_WIDTH = 64;
+constexpr uint16_t MATRIX_WIDTH = 32;
 constexpr uint16_t MATRIX_HEIGHT = 32;
 
-Adafruit_Protomatter matrix(MATRIX_WIDTH,
-							6,
-							1,
-							rgbPins,
-							5,
-							addrPins,
-							CLK_PIN,
-							LAT_PIN,
-							OE_PIN,
-							true);
+Adafruit_Protomatter protomatterMatrix(MATRIX_WIDTH,
+										6,
+										1,
+										rgbPins,
+										4,
+										addrPins,
+										CLK_PIN,
+										LAT_PIN,
+										OE_PIN,
+										true);
 
-uint16_t hue = 0;
+Adafruit_Protomatter* matrix = &protomatterMatrix;
 
-void drawDemo() {
-	matrix.fillScreen(0);
+#define VPANEL_W MATRIX_WIDTH
+#define VPANEL_H MATRIX_HEIGHT
 
-	for (int16_t x = 0; x < MATRIX_WIDTH; x++) {
-		const uint16_t color = matrix.color565((x * 4 + hue) & 0xFF,
-											   80,
-											   255 - ((x * 4 + hue) & 0xFF));
-		matrix.drawFastVLine(x, 0, MATRIX_HEIGHT, color);
+#include "AuroraProtomatterCompat.h"
+
+ProtomatterOutput output;
+ProtomatterOutput* virtualDisp = &output;
+
+#include <cstdlib>
+#define free(pointer) ::free(pointer)
+#include "aurora/EffectsLayer.hpp"
+#undef free
+EffectsLayer effects(MATRIX_WIDTH, MATRIX_HEIGHT);
+
+#include "aurora/Drawable.hpp"
+#include "aurora/Geometry.hpp"
+#include "aurora/Patterns.hpp"
+
+Patterns patterns;
+
+constexpr uint32_t PATTERN_DURATION_MS = 30000;
+constexpr uint32_t PALETTE_DURATION_MS = 10000;
+uint32_t lastPatternChange = 0;
+uint32_t lastPaletteChange = 0;
+uint32_t nextFrameAt = 0;
+bool autoAdvance = true;
+
+void changePattern(int8_t step) {
+	patterns.move(step);
+	lastPatternChange = millis();
+	nextFrameAt = lastPatternChange;
+}
+
+void handleSerialInput() {
+	if (Serial.available() == 0) {
+		return;
 	}
 
-	matrix.setTextColor(matrix.color565(255, 255, 255));
-	matrix.setTextSize(1);
-	matrix.setCursor(2, 4);
-	matrix.print("Matrix Portal S3");
-	matrix.setCursor(2, 18);
-	matrix.print("HUB75 / Arduino");
-	matrix.show();
+	const char command = static_cast<char>(Serial.read());
+	switch (command) {
+		case 'n':
+			changePattern(1);
+			break;
+		case 'p':
+			changePattern(-1);
+			break;
+		case 'a':
+			autoAdvance = !autoAdvance;
+			Serial.println(autoAdvance ? "Auto advance ON" : "Auto advance OFF");
+			lastPatternChange = millis();
+			break;
+		default:
+			break;
+	}
 }
 
 void setup() {
 	Serial.begin(115200);
 	delay(250);
 
-	const auto status = matrix.begin();
+	const auto status = matrix->begin();
 	if (status != PROTOMATTER_OK) {
 		Serial.print("Protomatter init failed: ");
 		Serial.println(status);
@@ -56,13 +94,27 @@ void setup() {
 		}
 	}
 
-	matrix.setTextWrap(false);
-	drawDemo();
-	Serial.println("Matrix Portal S3 ready");
+	patterns.listPatterns();
+	lastPatternChange = millis();
+	lastPaletteChange = lastPatternChange;
+	Serial.print("Starting Aurora pattern: ");
+	Serial.println(patterns.getCurrentPatternName());
 }
 
 void loop() {
-	drawDemo();
-	hue++;
-	delay(40);
+	handleSerialInput();
+	const uint32_t now = millis();
+
+	if (now - lastPaletteChange >= PALETTE_DURATION_MS) {
+		effects.RandomPalette();
+		lastPaletteChange = now;
+	}
+
+	if (autoAdvance && now - lastPatternChange >= PATTERN_DURATION_MS) {
+		changePattern(1);
+	}
+
+	if (static_cast<int32_t>(now - nextFrameAt) >= 0) {
+		nextFrameAt = now + patterns.drawFrame();
+	}
 }

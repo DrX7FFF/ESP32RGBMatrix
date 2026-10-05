@@ -7,6 +7,14 @@ Le projet PlatformIO à la racine utilise la bibliothèque HUB75 `Adafruit Proto
 
 https://learn.adafruit.com/adafruit-matrixportal-s3
 
+### Références
+https://github.com/pixelmatix/aurora
+
+### Autre librairie utilisant le périphérique LCD_CAM de l’ESP32-S3
+Attention, le WIFI pose des problèmes avec le module Matrix Portal S3
+https://github.com/mrcodetastic/ESP32-HUB75-MatrixPanel-DMA
+
+
 ### Préparer et téléverser
 
 Installer l'extension PlatformIO dans VS Code, puis exécuter depuis le dossier du projet :
@@ -23,9 +31,11 @@ La cible est `esp32-s3-devkitc-1`, avec 8 Mo de flash configurés pour le Matrix
 
 ### Matrice utilisée par l'exemple
 
-L'exemple est configuré pour une matrice HUB75 de 64 x 32 pixels. Pour une matrice 32 x 32, modifier `MATRIX_WIDTH` et retirer la cinquième ligne d'adresse (`36`) du tableau `addrPins`, puis passer `4` comme nombre de lignes d'adresse dans le constructeur `Protomatter`.
+L'exemple est configuré pour une matrice HUB75 de 32 x 32 pixels avec quatre lignes d'adresse. Le brochage Matrix Portal S3 utilisé est : RGB `42, 41, 40, 38, 39, 37`, adresse `17, 18, 21, 16`, horloge `34`, latch `33`, et output-enable `35`.
 
-Le brochage Matrix Portal S3 utilisé est : RGB `42, 41, 40, 38, 39, 37`, adresse `17, 18, 21, 16, 36`, horloge `34`, latch `33`, et output-enable `35`.
+### Animations Aurora
+
+Les headers d’animation utilisés par le firmware sont intégrés dans `src/aurora`; la compilation ne dépend pas des dossiers d’exemples externes. Le moniteur série à 115200 bauds accepte `n` (suivant), `p` (précédent) et `a` (activer/désactiver le défilement automatique). Le changement automatique se fait toutes les 30 secondes.
 
 ## Option préférée
 https://www.amazon.fr/Adafruit-aliment%C3%A9-CircuitPython-affichage-5778/dp/B0DXK7D3ML/ref=sr_1_3?sr=8-3

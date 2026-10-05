@@ -74,3 +74,7 @@ vcpkg_installed/
 Testing/
 .cache/
 ESP8266RGBMatrix-master/
+ESP32-HUB75-MatrixPanel-DMA-master/
+aurora-master/
+FastLED-master/
+tools/
