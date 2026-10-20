@@ -83,7 +83,8 @@ void handleSerialInput() {
 
 void setup() {
 	Serial.begin(115200);
-	delay(250);
+	delay(2000);
+	Serial.print("Starting ...");
 
 	const auto status = matrix->begin();
 	if (status != PROTOMATTER_OK) {
@@ -102,6 +103,8 @@ void setup() {
 }
 
 void loop() {
+	Serial.print("*");
+
 	handleSerialInput();
 	const uint32_t now = millis();
 
