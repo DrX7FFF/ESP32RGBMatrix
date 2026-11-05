@@ -27,11 +27,11 @@ pio device monitor
 
 Depuis un terminal où la commande `pio` n'est pas dans le PATH, utiliser `python -m platformio` à la place.
 
-La cible est `esp32-s3-devkitc-1`, avec 8 Mo de flash configurés pour le Matrix Portal S3. Le câble USB-C doit être branché sur le port USB de la carte utilisé par le bootloader.
+La cible est `adafruit_matrixportal_esp32s3`. Le câble USB-C doit être branché sur le port USB de la carte utilisé par le bootloader.
 
 ### Matrice utilisée par l'exemple
 
-L'exemple est configuré pour une matrice HUB75 de 32 x 32 pixels avec quatre lignes d'adresse. Le brochage Matrix Portal S3 utilisé est : RGB `42, 41, 40, 38, 39, 37`, adresse `17, 18, 21, 16`, horloge `34`, latch `33`, et output-enable `35`.
+L'exemple est configuré pour une matrice HUB75 de 32 x 32 pixels avec quatre lignes d'adresse. Le brochage Matrix Portal S3 utilisé est : RGB `42, 41, 40, 38, 39, 37`, adresse `45, 36, 48, 35`, horloge `2`, latch `47`, et output-enable `14`.
 
 ### Animations Aurora
 

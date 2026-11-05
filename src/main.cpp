@@ -4,11 +4,11 @@
 
 // Adafruit Matrix Portal S3 HUB75 pins.
 uint8_t rgbPins[] = {42, 41, 40, 38, 39, 37};
-uint8_t addrPins[] = {17, 18, 21, 16};
+uint8_t addrPins[] = {45, 36, 48, 35};
 
-constexpr uint8_t CLK_PIN = 34;
-constexpr uint8_t LAT_PIN = 33;
-constexpr uint8_t OE_PIN = 35;
+constexpr uint8_t CLK_PIN = 2;
+constexpr uint8_t LAT_PIN = 47;
+constexpr uint8_t OE_PIN = 14;
 constexpr uint16_t MATRIX_WIDTH = 32;
 constexpr uint16_t MATRIX_HEIGHT = 32;
 
