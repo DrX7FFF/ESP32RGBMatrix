@@ -37,10 +37,10 @@
 #include "PatternSimplexNoise.hpp"
 #include "PatternSnake.hpp"
 #include "PatternSpiral.hpp"
-#include "PatternSpiro.hpp"
+// #include "PatternSpiro.hpp"
 #include "PatternWave.hpp" 
 #include "PatternRain.hpp"
-#include "PatternJuliaSetFractal.hpp"
+// #include "PatternJuliaSetFractal.hpp"
 #include "PatternRain.hpp"
 #include "PatternFireworks.hpp"
 
@@ -64,21 +64,21 @@ class Patterns {
     PatternSimplexNoise simpnoise;
     PatternSnake snake;
     PatternSpiral spiral;
-    PatternSpiro spiro;
+    // PatternSpiro spiro;
     PatternWave wave;
-    PatternJuliaSet juliaSet;
+    // PatternJuliaSet juliaSet;
     
     PatternRain rain;
     PatternFirework fireworks;
     
 
     std::vector<Drawable*> availablePatterns = {
-      &juliaSet,
+      // &juliaSet,
       &starfield,
       &attract,
       &electricMandala,
       &flock,
-      &spiro,
+      // &spiro,
       &radar,
       &flowField,
       &incrementalDrift,
