@@ -154,6 +154,13 @@ public:
         leds[i].nscale8(value);
   }  
 
+  // blur2d avec XYMap explicite : la version sans XYMap de FastLED 3.10 ignore notre XY() (signature
+  // différente), écrit tout en [0] et logge une erreur par pixel, ce qui fige l'affichage.
+  fl::XYMap xyMap = fl::XYMap::constructRectangularGrid(VPANEL_W, VPANEL_H);
+  void Blur2d(fract8 amount) {
+    blur2d(leds, width, height, amount, xyMap);
+  }
+
   void ClearFrame() {
       for (int i = 0; i < num_leds; i++)
         leds[i]= CRGB(0,0,0);

@@ -55,7 +55,7 @@ class PatternSpiro : public Drawable {
     };
 
     unsigned int drawFrame() {
-      blur2d(effects.leds, VPANEL_W > 255 ? 255 : VPANEL_W, VPANEL_H > 255 ? 255 : VPANEL_H, 64);
+      effects.Blur2d(64);
 
       boolean change = false;
       

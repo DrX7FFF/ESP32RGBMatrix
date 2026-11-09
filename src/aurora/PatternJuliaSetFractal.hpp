@@ -119,7 +119,7 @@ class PatternJuliaSet : public Drawable {
         }
       }
 
-      blur2d(effects.leds, VPANEL_W, VPANEL_H, 64);      
+      effects.Blur2d(64);      
 
       effects.ShowFrame();
       return 0;      

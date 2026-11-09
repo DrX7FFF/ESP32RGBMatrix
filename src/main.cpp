@@ -74,10 +74,13 @@ static WiFiClient controlClient;
 static char controlLine[256];
 static size_t controlLength = 0;
 
+static void sendState();
+
 void changePattern(int8_t step) {
 	patterns.move(step);
 	lastPatternChange = millis();
 	nextFrameAt = lastPatternChange;
+	sendState();
 }
 
 static bool clockValid() {
@@ -185,9 +188,11 @@ static void configureDhcp(Print &out) {
 }
 
 // Pushes the display state to the console and to the control client, if any.
+// pattern en dernier, entre guillemets (le nom peut contenir des espaces)
 static void sendState() {
-	Serial.printf("state on=%d\n", displayOn);
-	if (controlClient.connected()) controlClient.printf("state on=%d\n", displayOn);
+	const char *fmt = "state on=%d auto=%d pattern=\"%s\"\n";
+	Serial.printf(fmt, displayOn, autoAdvance, patterns.getCurrentPatternName());
+	if (controlClient.connected()) controlClient.printf(fmt, displayOn, autoAdvance, patterns.getCurrentPatternName());
 }
 
 // Protomatter resume() re-runs the whole ESP32-S3 init (new DMA channel each time) and the display
@@ -245,10 +250,10 @@ static void handleControlServer() {
 	}
 }
 
-static void toggleAutoAdvance(Print &out) {
-	autoAdvance = !autoAdvance;
-	out.println(autoAdvance ? "Auto advance ON" : "Auto advance OFF");
+static void setAutoAdvance(bool on) {
+	autoAdvance = on;
 	lastPatternChange = millis();
+	sendState();
 }
 
 const Command COMMANDS[] = {
@@ -263,7 +268,9 @@ const Command COMMANDS[] = {
 	CMD("ipdhcp",   0, { configureDhcp(out); },    "ipdhcp"),
 	CMD("n",        0, { changePattern(1); },      "n (next pattern)"),
 	CMD("p",        0, { changePattern(-1); },     "p (previous pattern)"),
-	CMD("a",        0, { toggleAutoAdvance(out); }, "a (toggle auto advance)"),
+	CMD("a",        0, { setAutoAdvance(!autoAdvance); }, "a (toggle auto advance)"),
+	CMD("play",     0, { setAutoAdvance(true); },  "play (auto advance on)"),
+	CMD("pause",    0, { setAutoAdvance(false); }, "pause (stay on current pattern)"),
 };
 
 const size_t COMMANDS_COUNT = sizeof(COMMANDS) / sizeof(COMMANDS[0]);
@@ -311,10 +318,12 @@ void loop() {
 	if (!displayOn) return;
 	const uint32_t now = millis();
 
-	if (now - lastPaletteChange >= PALETTE_DURATION_MS) {
-		effects.RandomPalette();
-		lastPaletteChange = now;
-	}
+	// Changement aléatoire de palette désactivé : palette fixe RainbowColors_p (chargée par EffectsLayer),
+	// pour un rendu identique aux ports Soulmate IDE.
+	// if (now - lastPaletteChange >= PALETTE_DURATION_MS) {
+	// 	effects.RandomPalette();
+	// 	lastPaletteChange = now;
+	// }
 
 	if (autoAdvance && now - lastPatternChange >= PATTERN_DURATION_MS) {
 		changePattern(1);

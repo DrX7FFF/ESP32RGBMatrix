@@ -27,9 +27,9 @@
 #include "PatternFlock.hpp"
 #include "PatternFlowField.hpp"
 #include "PatternIncrementalDrift.hpp"
-#include "PatternInfinity.hpp"
+// #include "PatternInfinity.hpp"
 #include "PatternMaze.hpp" // ??
-#include "PatternMunch.hpp"
+// #include "PatternMunch.hpp"
 //#include "PatternNoiseSmearing.hpp"
 #include "PatternPendulumWave.hpp"
 #include "PatternPlasma.hpp"
@@ -37,12 +37,15 @@
 #include "PatternSimplexNoise.hpp"
 #include "PatternSnake.hpp"
 #include "PatternSpiral.hpp"
-// #include "PatternSpiro.hpp"
+#include "PatternSpiro.hpp"
 #include "PatternWave.hpp" 
 #include "PatternRain.hpp"
-// #include "PatternJuliaSetFractal.hpp"
+#include "PatternJuliaSetFractal.hpp"
 #include "PatternRain.hpp"
 #include "PatternFireworks.hpp"
+#include "PatternDistorsionWaves.hpp"
+#include "PatternColoredBursts.hpp"
+#include "PatternFireOldSchool.hpp"
 
 
 
@@ -55,42 +58,48 @@ class Patterns {
     PatternFlock flock;
     PatternFlowField flowField;
     PatternIncrementalDrift incrementalDrift;
-    PatternInfinity infinity;
+    // PatternInfinity infinity;
     PatternMaze maze;    
-    PatternMunch munch;
+    // PatternMunch munch;
     PatternPendulumWave pendwave;
     PatternPlasma plasma;
     PatternRadar radar;
     PatternSimplexNoise simpnoise;
     PatternSnake snake;
     PatternSpiral spiral;
-    // PatternSpiro spiro;
+    PatternSpiro spiro;
     PatternWave wave;
-    // PatternJuliaSet juliaSet;
+    PatternJuliaSet juliaSet;
     
     PatternRain rain;
     PatternFirework fireworks;
+    PatternDistorsionWaves distorsionWaves;
+    PatternColoredBursts coloredBursts;
+    PatternFireOldSchool fireOldSchool;
     
 
     std::vector<Drawable*> availablePatterns = {
-      // &juliaSet,
+      &juliaSet,
       &starfield,
       &attract,
       &electricMandala,
       &flock,
-      // &spiro,
+      &spiro,
       &radar,
       &flowField,
       &incrementalDrift,
-      &infinity,
+      // &infinity,
       &maze,
-      &munch,
+      // &munch,
       &pendwave,
       &plasma,
       &simpnoise,
       &wave,
       &rain,
-      &fireworks
+      &fireworks,
+      &distorsionWaves,
+      &coloredBursts,
+      &fireOldSchool
     };    
 
     int currentIndex = 0;

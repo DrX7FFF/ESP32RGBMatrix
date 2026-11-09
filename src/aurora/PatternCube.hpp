@@ -158,7 +158,7 @@ class PatternCube : public Drawable {
       uint8_t blurAmount = beatsin8(2, 10, 128);
 
 #if FASTLED_VERSION >= 3001000
-      blur2d(effects.leds, VPANEL_W, VPANEL_H, blurAmount);
+      effects.Blur2d(blurAmount);
 #else
       effects.DimAll(blurAmount); effects.ShowFrame();
 #endif
