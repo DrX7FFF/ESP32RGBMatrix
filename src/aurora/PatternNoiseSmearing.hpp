@@ -58,10 +58,10 @@ public:
     effects.leds[XY16(x2, y2)] = effects.ColorFromCurrentPalette(patternNoiseSmearingHue + 128);
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(8);
@@ -95,11 +95,11 @@ public:
 
     effects.leds[XY16(15, 15)] += effects.ColorFromCurrentPalette(patternNoiseSmearingHue + 160);
 
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_z += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_z += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(3);
@@ -129,11 +129,11 @@ public:
     }
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_z += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_z += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(3);
@@ -163,10 +163,10 @@ public:
 
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(8);
@@ -198,11 +198,11 @@ public:
     }
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_z += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_z += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(3);
@@ -233,11 +233,11 @@ public:
     }
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_z += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_z += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(3);
@@ -269,10 +269,10 @@ public:
  
   
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
  
     effects.FillNoise();
 
@@ -320,10 +320,10 @@ public:
     }
 
     // Noise
-    noise_x += 1000;
-    noise_y += 1000;
-    noise_scale_x = 4000;
-    noise_scale_y = 4000;
+    effects.noise_x += 1000;
+    effects.noise_y += 1000;
+    effects.noise_scale_x = 4000;
+    effects.noise_scale_y = 4000;
     effects.FillNoise();
 
     effects.MoveX(3);

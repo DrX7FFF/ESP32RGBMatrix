@@ -33,7 +33,7 @@ const uint8_t PROGMEM palette_fire[] = {/* RGB888  R,G,B,R,G,B,R,G,B,...  */
 class PatternFireKoz : public Drawable {
   private:
 
-    const int FIRE_HEIGHT = 800;
+    const int FIRE_HEIGHT = 255; // buffer uint8_t + palette de 290 couleurs
 
     int Bit = 0, NBit = 1;
     float fire_c;

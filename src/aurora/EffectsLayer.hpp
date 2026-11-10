@@ -803,6 +803,37 @@ public:
     } // end column loop
   } /// MoveY
 
+  // Aurora : décalage fractionnaire piloté par le bruit (ligne par ligne / colonne par colonne)
+  void MoveFractionalNoiseX(byte amt = 16) {
+    std::vector<CRGB> row(width);
+    for (int y = 0; y < height; y++) {
+      uint16_t amount = noise[0][y] * amt;
+      int delta = (width - 1 - amount / 256) % width; if (delta < 0) delta += width;
+      byte fractions = amount - ((width - 1 - delta) * 256);
+      for (int x = 0; x < width; x++) row[x] = leds[XY16((x + delta) % width, y)];
+      for (int x = 0; x < width; x++) {
+        CRGB a = row[x], b = row[(x + width - 1) % width];
+        a %= 255 - fractions; b %= fractions;
+        leds[XY16(x, y)] = a + b;
+      }
+    }
+  }
+
+  void MoveFractionalNoiseY(byte amt = 16) {
+    std::vector<CRGB> col(height);
+    for (int x = 0; x < width; x++) {
+      uint16_t amount = noise[x][0] * amt;
+      int delta = (height - 1 - amount / 256) % height; if (delta < 0) delta += height;
+      byte fractions = amount - ((height - 1 - delta) * 256);
+      for (int y = 0; y < height; y++) col[y] = leds[XY16(x, (y + delta) % height)];
+      for (int y = 0; y < height; y++) {
+        CRGB a = col[y], b = col[(y + height - 1) % height];
+        a %= 255 - fractions; b %= fractions;
+        leds[XY16(x, y)] = a + b;
+      }
+    }
+  }
+
   // Override GFX methods
   void drawPixel(int16_t x, int16_t y, uint16_t color) override {
     setPixel(x, y, CRGB(color));

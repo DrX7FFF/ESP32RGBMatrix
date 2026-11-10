@@ -66,9 +66,9 @@ public:
 
         for (int i =0; i < 16; i++)
         {
-            float radians = radians(tempDegrees);
-            x = (int) (effects.getCenterX() + radius * cos(radians));
-            y = (int) (effects.getCenterY() - radius * sin(radians));
+            float rad = radians(tempDegrees);
+            x = (int) (effects.getCenterX() + radius * cos(rad));
+            y = (int) (effects.getCenterY() - radius * sin(rad));
 
             effects.setPixel(x, y, color);
             effects.setPixel(y, x, color);

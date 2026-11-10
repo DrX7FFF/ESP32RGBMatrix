@@ -27,10 +27,10 @@
 #include "PatternFlock.hpp"
 #include "PatternFlowField.hpp"
 #include "PatternIncrementalDrift.hpp"
-// #include "PatternInfinity.hpp"
+#include "PatternInfinity.hpp"
 #include "PatternMaze.hpp" // ??
-// #include "PatternMunch.hpp"
-//#include "PatternNoiseSmearing.hpp"
+#include "PatternMunch.hpp"
+#include "PatternNoiseSmearing.hpp"
 #include "PatternPendulumWave.hpp"
 #include "PatternPlasma.hpp"
 #include "PatternRadar.hpp"
@@ -41,11 +41,16 @@
 #include "PatternWave.hpp" 
 #include "PatternRain.hpp"
 #include "PatternJuliaSetFractal.hpp"
-#include "PatternRain.hpp"
 #include "PatternFireworks.hpp"
 #include "PatternDistorsionWaves.hpp"
 #include "PatternColoredBursts.hpp"
 #include "PatternFireOldSchool.hpp"
+#include "PatternBounce.hpp"
+#include "PatternCube.hpp"
+#include "PatternFireKoz.hpp"
+#include "PatternGreenScroll.hpp"
+#include "PatternIncrementalDrift2.hpp"
+#include "PatternSpin.hpp"
 
 
 
@@ -58,9 +63,9 @@ class Patterns {
     PatternFlock flock;
     PatternFlowField flowField;
     PatternIncrementalDrift incrementalDrift;
-    // PatternInfinity infinity;
+    PatternInfinity infinity;
     PatternMaze maze;    
-    // PatternMunch munch;
+    PatternMunch munch;
     PatternPendulumWave pendwave;
     PatternPlasma plasma;
     PatternRadar radar;
@@ -76,6 +81,20 @@ class Patterns {
     PatternDistorsionWaves distorsionWaves;
     PatternColoredBursts coloredBursts;
     PatternFireOldSchool fireOldSchool;
+    PatternBounce bounce;
+    PatternCube cube;
+    PatternFireKoz fireKoz;
+    PatternTheMatrix theMatrix;
+    PatternIncrementalDrift2 incrementalDrift2;
+    PatternSpin spin;
+    PatternMultipleStream multipleStream;
+    PatternMultipleStream2 multipleStream2;
+    PatternMultipleStream3 multipleStream3;
+    PatternMultipleStream4 multipleStream4;
+    PatternMultipleStream5 multipleStream5;
+    PatternMultipleStream8 multipleStream8;
+    PatternPaletteSmear paletteSmear;
+    PatternRainbowFlag rainbowFlag;
     
 
     std::vector<Drawable*> availablePatterns = {
@@ -88,9 +107,9 @@ class Patterns {
       &radar,
       &flowField,
       &incrementalDrift,
-      // &infinity,
+      &infinity,
       &maze,
-      // &munch,
+      &munch,
       &pendwave,
       &plasma,
       &simpnoise,
@@ -99,7 +118,23 @@ class Patterns {
       &fireworks,
       &distorsionWaves,
       &coloredBursts,
-      &fireOldSchool
+      &fireOldSchool,
+      &snake,
+      &spiral,
+      &bounce,
+      &cube,
+      &fireKoz,
+      &theMatrix,
+      &incrementalDrift2,
+      &spin,
+      &multipleStream,
+      &multipleStream2,
+      &multipleStream3,
+      &multipleStream4,
+      &multipleStream5,
+      &multipleStream8,
+      &paletteSmear,
+      &rainbowFlag
     };    
 
     int currentIndex = 0;
