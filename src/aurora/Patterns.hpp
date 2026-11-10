@@ -27,9 +27,9 @@
 #include "PatternFlock.hpp"
 #include "PatternFlowField.hpp"
 #include "PatternIncrementalDrift.hpp"
-#include "PatternInfinity.hpp"
+// #include "PatternInfinity.hpp"
 #include "PatternMaze.hpp" // ??
-#include "PatternMunch.hpp"
+// #include "PatternMunch.hpp"
 #include "PatternNoiseSmearing.hpp"
 #include "PatternPendulumWave.hpp"
 #include "PatternPlasma.hpp"
@@ -48,9 +48,9 @@
 #include "PatternBounce.hpp"
 #include "PatternCube.hpp"
 #include "PatternFireKoz.hpp"
-#include "PatternGreenScroll.hpp"
+// #include "PatternGreenScroll.hpp"
 #include "PatternIncrementalDrift2.hpp"
-#include "PatternSpin.hpp"
+// #include "PatternSpin.hpp"
 
 
 
@@ -63,9 +63,9 @@ class Patterns {
     PatternFlock flock;
     PatternFlowField flowField;
     PatternIncrementalDrift incrementalDrift;
-    PatternInfinity infinity;
+    // PatternInfinity infinity;
     PatternMaze maze;    
-    PatternMunch munch;
+    // PatternMunch munch;
     PatternPendulumWave pendwave;
     PatternPlasma plasma;
     PatternRadar radar;
@@ -84,17 +84,17 @@ class Patterns {
     PatternBounce bounce;
     PatternCube cube;
     PatternFireKoz fireKoz;
-    PatternTheMatrix theMatrix;
+    // PatternTheMatrix theMatrix;
     PatternIncrementalDrift2 incrementalDrift2;
-    PatternSpin spin;
-    PatternMultipleStream multipleStream;
+    // PatternSpin spin;
+    // PatternMultipleStream multipleStream;
     PatternMultipleStream2 multipleStream2;
     PatternMultipleStream3 multipleStream3;
     PatternMultipleStream4 multipleStream4;
-    PatternMultipleStream5 multipleStream5;
+    // PatternMultipleStream5 multipleStream5;
     PatternMultipleStream8 multipleStream8;
-    PatternPaletteSmear paletteSmear;
-    PatternRainbowFlag rainbowFlag;
+    // PatternPaletteSmear paletteSmear;
+    // PatternRainbowFlag rainbowFlag;
     
 
     std::vector<Drawable*> availablePatterns = {
@@ -107,9 +107,9 @@ class Patterns {
       &radar,
       &flowField,
       &incrementalDrift,
-      &infinity,
+      // &infinity,
       &maze,
-      &munch,
+      // &munch,
       &pendwave,
       &plasma,
       &simpnoise,
@@ -124,17 +124,17 @@ class Patterns {
       &bounce,
       &cube,
       &fireKoz,
-      &theMatrix,
+      // &theMatrix,
       &incrementalDrift2,
-      &spin,
-      &multipleStream,
+      // &spin,
+      // &multipleStream,
       &multipleStream2,
       &multipleStream3,
       &multipleStream4,
-      &multipleStream5,
+      // &multipleStream5,
       &multipleStream8,
-      &paletteSmear,
-      &rainbowFlag
+      // &paletteSmear,
+      // &rainbowFlag
     };    
 
     int currentIndex = 0;
