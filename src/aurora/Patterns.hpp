@@ -171,9 +171,6 @@ class Patterns {
       currentIndex = index;
       currentItem = availablePatterns[currentIndex];
 
-      Serial.print("Changing pattern to:  ");
-      Serial.println(getCurrentPatternName());      
-
       if (currentItem)
         currentItem->start();
 
@@ -196,28 +193,6 @@ class Patterns {
 
     unsigned int drawFrame() {
       return currentItem->drawFrame();
-    }
-
-    void listPatterns() {
-      Serial.println(F("{"));
-      Serial.print(F("  \"count\": "));
-      Serial.print(availablePatterns.size());
-      Serial.println(",");
-      Serial.println(F("  \"results\": ["));
-
-      for (size_t i = 0; i < availablePatterns.size(); i++) {
-        Serial.print(F("    \""));
-        Serial.print(i, DEC);
-        Serial.print(F(": "));
-        Serial.print(availablePatterns[i]->name);
-        if (i == availablePatterns.size() - 1)
-          Serial.println(F("\""));
-        else
-          Serial.println(F("\","));
-      }
-
-      Serial.println("  ]");
-      Serial.println("}");
     }
 
     char * getCurrentPatternName()

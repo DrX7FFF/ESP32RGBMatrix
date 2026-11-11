@@ -298,40 +298,6 @@ public:
       RandomPalette();
   }
 
-  void listPalettes() {
-    Serial.println(F("{"));
-    Serial.print(F("  \"count\": "));
-    Serial.print(paletteCount);
-    Serial.println(",");
-    Serial.println(F("  \"results\": ["));
-
-    String paletteNames [] = {
-      "Rainbow",
-      // "RainbowStripe",
-      "Ocean",
-      "Cloud",
-      "Forest",
-      "Party",
-      "Grayscale",
-      "Heat",
-      "Lava",
-      "Ice",
-      "Random"
-    };
-
-    for (int i = 0; i < paletteCount; i++) {
-      Serial.print(F("    \""));
-      Serial.print(paletteNames[i]);
-      if (i == paletteCount - 1)
-        Serial.println(F("\""));
-      else
-        Serial.println(F("\","));
-    }
-
-    Serial.println("  ]");
-    Serial.println("}");
-  }
-
   void setupGrayscalePalette() {
     targetPalette = CRGBPalette16(CRGB::Black, CRGB::White);
   }

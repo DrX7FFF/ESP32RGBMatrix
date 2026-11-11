@@ -43,11 +43,6 @@ public:
         return 0;
     };
 
-    virtual void printTesting()
-    {
-      Serial.println("Testing...");
-    }
-
     virtual void start() {};
     virtual void stop() {};
 };

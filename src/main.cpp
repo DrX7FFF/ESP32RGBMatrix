@@ -13,11 +13,9 @@ extern esp_netif_t *get_esp_interface_netif(esp_interface_t interface);
 
 #define HOSTNAME "ESP32RGBMatrix"
 #define NTP_SERVER "pool.ntp.org"
-#define NTP_RESYNC_INTERVAL_MS (8UL * 60UL * 60UL * 1000UL)
 #define IPCONFIG "#IPConfig"
 #define CONTROL_PORT 5000
 static constexpr uint32_t CLOCK_MIN = 100000;
-static unsigned long lastNtpSyncMillis = 0;
 
 // Adafruit Matrix Portal S3 HUB75 pins.
 uint8_t rgbPins[] = {42, 41, 40, 38, 39, 37};
@@ -65,7 +63,7 @@ Patterns patterns;
 constexpr uint32_t PATTERN_DURATION_MS = 30000;
 constexpr uint32_t PALETTE_DURATION_MS = 10000;
 uint32_t lastPatternChange = 0;
-uint32_t lastPaletteChange = 0;
+// uint32_t lastPaletteChange = 0;
 uint32_t nextFrameAt = 0;
 bool autoAdvance = true;
 bool displayOn = true;
@@ -85,13 +83,6 @@ void changePattern(int8_t step) {
 
 static bool clockValid() {
 	return time(nullptr) >= CLOCK_MIN;
-}
-
-static void resyncNtpIfDue() {
-	unsigned long now = millis();
-	if (now - lastNtpSyncMillis < NTP_RESYNC_INTERVAL_MS) return;
-	configTime(0, 0, NTP_SERVER);
-	lastNtpSyncMillis = now;
 }
 
 // Persists the current static IP config so it can be re-applied at boot (WiFi.config() itself is not remembered by the IDF).
@@ -191,7 +182,6 @@ static void configureDhcp(Print &out) {
 // pattern en dernier, entre guillemets (le nom peut contenir des espaces)
 static void sendState() {
 	const char *fmt = "state on=%d auto=%d pattern=\"%s\"\n";
-	Serial.printf(fmt, displayOn, autoAdvance, patterns.getCurrentPatternName());
 	if (controlClient.connected()) controlClient.printf(fmt, displayOn, autoAdvance, patterns.getCurrentPatternName());
 }
 
@@ -218,7 +208,7 @@ static void setDisplay(bool on) {
 		if (on) {
 			matrixResume();
 			lastPatternChange = millis();
-			lastPaletteChange = lastPatternChange;
+			// lastPaletteChange = lastPatternChange;
 			nextFrameAt = lastPatternChange;
 		} else {
 			matrix->stop();
@@ -277,7 +267,6 @@ const size_t COMMANDS_COUNT = sizeof(COMMANDS) / sizeof(COMMANDS[0]);
 
 void setup() {
 	Serial.begin(115200);
-	// delay(2000);
 	Serial.print("Starting ...");
 
 	const auto status = matrix->begin();
@@ -289,20 +278,14 @@ void setup() {
 		}
 	}
 
-	patterns.listPatterns();
 	lastPatternChange = millis();
-	lastPaletteChange = lastPatternChange;
-	Serial.print("Starting Aurora pattern: ");
-	Serial.println(patterns.getCurrentPatternName());
+	// lastPaletteChange = lastPatternChange;
 
-	WiFi.persistent(true);
-	WiFi.setAutoReconnect(true);
 	WiFi.mode(WIFI_STA);
 	WiFi.setHostname(HOSTNAME);
 	loadIP();
 	WiFi.begin();
 	configTime(0, 0, NTP_SERVER);
-	lastNtpSyncMillis = millis();
 	ArduinoOTA.setHostname(HOSTNAME);
 	ArduinoOTA.onStart([]() { setDisplay(false); });
 	ArduinoOTA.begin();
@@ -312,7 +295,6 @@ void setup() {
 
 void loop() {
 	handleSerialInput();
-	resyncNtpIfDue();
 	ArduinoOTA.handle();
 	handleControlServer();
 	if (!displayOn) return;

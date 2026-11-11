@@ -246,7 +246,6 @@ class Boid {
       PVector steer = desired - velocity;
       steer.limit(maxforce);  // Limit to maximum steering force
       applyForce(steer);
-      //Serial.println(d);
     }
 
     void wrapAroundBorders() {
