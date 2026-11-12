@@ -267,6 +267,7 @@ const size_t COMMANDS_COUNT = sizeof(COMMANDS) / sizeof(COMMANDS[0]);
 
 void setup() {
 	Serial.begin(115200);
+	Serial.setDebugOutput(true);
 	Serial.print("Starting ...");
 
 	const auto status = matrix->begin();
@@ -281,6 +282,10 @@ void setup() {
 	lastPatternChange = millis();
 	// lastPaletteChange = lastPatternChange;
 
+	// Le core ne relance pas la connexion après MISSING_ACKS (absent de _is_staReconnectableReason).
+	WiFi.onEvent([](arduino_event_id_t, arduino_event_info_t info) {
+		if (info.wifi_sta_disconnected.reason == WIFI_REASON_MISSING_ACKS) WiFi.reconnect();
+	}, ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
 	WiFi.mode(WIFI_STA);
 	WiFi.setHostname(HOSTNAME);
 	loadIP();
